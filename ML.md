@@ -322,7 +322,7 @@ print(lasso_gs.best_score_)
 
 # Наилучшая alpha
 print(lasso_gs.best_params_)
-{'alpha': 0.00085959595959595955}
+# {'alpha': 0.00085959595959595955}
 
 ```
 
@@ -371,11 +371,33 @@ print(clf.best_params_)
 # здесь - точность
 
 # 0.643383034893
-# {'max_depth': 3, 'min_child_weight': 1.0105263157894737, 'n_estimators': 195}
+# {
+# 	'max_depth': 3,
+# 	'min_child_weight': 1.0105263157894737, 
+# 	'n_estimators': 195
+# }
 ```
 
+```Python
+# увеличение количества перебираемых параметров
+clf = GridSearchCV(xgb_model,
+                   {'learning_rate': np.linspace(0.01, 0.2, 20),
+                    'min_child_weight': np.linspace(0.9, 1.2, 20),
+                    'max_depth': [3,4],
+                    'n_estimators': range(100, 300, 5)}, verbose=0, cv=4)
+
+print(clf.best_score_)
+print(clf.best_params_)
 
 
+# 0.65207399603
+# {
+#	'learning_rate': 0.089999999999999997, 
+#	'max_depth': 3, 
+#	'min_child_weight': 0.90000000000000002, 
+#	'n_estimators': 280
+# }
+```
 
 
 # Продвинутые модели (когда важны +/- 0.001% качества)
